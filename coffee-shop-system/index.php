@@ -58,14 +58,14 @@ require_once "config/connection.php";
         </tr>
         <?php
         $data = mysqli_query($conn, "select * from items");
-        while ($d     = mysqli_fetch_array($data)) {
+        while ($d = mysqli_fetch_array($data)) {
             $number = 1;
         ?>
             <tr>
                 <td><?= $number++ ?></td>
-                <td><?= $d['name'] ?></td>
+                <td><?= $d['nameItem'] ?></td>
                 <td><?= $d['id_category'] ?></td>
-                <td><?= $d['desc'] ?></td>
+                <td><?= $d['deskripsi'] ?></td>
                 <td><img src="images/<?= $d['images']; ?>" width="100"></td>
                 <td><a href="edit.php?id=<?= $d['id']; ?>">Edit</a> | <a href="delete.php?id=<?= $d['id'] ?>">Delete</a></td>
             </tr>

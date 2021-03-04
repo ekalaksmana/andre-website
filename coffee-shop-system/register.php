@@ -1,15 +1,17 @@
 <?php
- session_start();
- if (isset($_SESSION['fullname'])) {
-     header('location: dashboard.php');
- }
+//  session_start();
+//  if (isset($_SESSION['fullname'])) {
+//      header('location: dashboard.php');
+//  }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Document</title>
 </head>
+
 <body>
     <form action="register-process.php" method="POST">
         <h1>Register</h1>
@@ -32,4 +34,5 @@
         </table>
     </form>
 </body>
+
 </html>

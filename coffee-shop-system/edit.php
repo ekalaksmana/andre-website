@@ -1,8 +1,39 @@
 <?php
-require_once "config/connection.php";
-require_once "helper/alert.php";
-require_once "helper/authentication.php";
+require "functions.php";
+// require_once "config/connection.php";
+// require_once "helper/alert.php";
+// require_once "helper/authentication.php";
 
+//* id,
+//* nama,
+//* id_category,
+//* desc,
+//* image
+
+
+if (isset($_POST['submit'])) {
+    if (editItem($_POST) > 0) {
+        echo "<script>
+                alert('data berhasil diedit!!');
+                document.location.href = 'index.php';
+            </script>";
+    } else {
+        echo "<script>
+                alert('data Gagal diedit!!');
+                document.location.href = 'index.php';
+            </script>";
+    }
+}
+
+
+// Check data dari get
+$id = $_GET['id'];
+
+// cari data di database
+// $data = query("SELECT * FROM items WHERE id = $id ")[0];
+
+
+//* Pengambilan data untuk dimunculkan di value form
 if (is_numeric($_GET['id'])) {
     $id = mysqli_real_escape_string($conn, $_GET['id']);
 
@@ -10,6 +41,7 @@ if (is_numeric($_GET['id'])) {
     $query = mysqli_query($conn, $sql);
     $total = mysqli_num_rows($query);
 
+    //? Pengecheckan data berhasil muncul atau tidak
     if ($total == 1) {
         $data = mysqli_fetch_assoc($query);
         // var_dump($data);
@@ -30,18 +62,19 @@ if (is_numeric($_GET['id'])) {
     <title>Edit Item</title>
 </head>
 
+
 <body>
     <?php require_once "./helper/header.php" ?>
-    <form action="./process/edit-process.php" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
 
         <h1 align="center">Edit Item</h1>
         <table align="center">
-            <input type="hidden" name="id">
             <tr>
                 <td>Item Name</td>
                 <td>
                     <input type="hidden" name="id" value="<?= $data['id'] ?>">
-                    <input type="text" name="item_name" placeholder="<?= $data['name'] ?>">
+                    <input type="hidden" name="gambarLama" value="<?= $data['images'] ?>">
+                    <input type="text" name="namaItem" value="<?= $data['nameItem']; ?>">
                 </td>
             </tr>
             <tr>
@@ -65,10 +98,11 @@ if (is_numeric($_GET['id'])) {
 
             <tr>
                 <td>desc</td>
-                <td><input type="text" name="desc" placeholder="<?= $data['desc'] ?>"></td>
+                <td><input type="text" name="desc" value="<?= $data['deskripsi'] ?>"></td>
             </tr>
             <tr>
                 <td>Stock</td>
+                <td><img src="images/<?= $data['images']; ?>" width="50px" alt=""></td>
                 <td><input type="file" name="image"></td>
             </tr>
 
